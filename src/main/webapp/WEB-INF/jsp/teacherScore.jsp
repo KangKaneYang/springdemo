@@ -5,7 +5,7 @@
 
 <center>
     <%--插入的消息--%>
-    <div id="insertMessage" style="color: red;">${insertMessage}</div>
+    <div id="insertMessage" style="color: red;" hidden="hidden">${insertMessage}</div>
     <br />
 
 

@@ -22,22 +22,11 @@
 
                 var teacherName = document.getElementById("teacherName").innerHTML;
                 var studentName = document.getElementById("studentName").value;
+                document.getElementById("studentName").value = "";
                 var courseName = document.getElementById("courseName").value;
+                document.getElementById("courseName").value = "";
                 var score = document.getElementById("score").value;
-                xhr.send("teacherName=" + teacherName + "&studentName=" + studentName + "&courseName=" + courseName + "&score=" + score);
-            }
-
-            function retriveInitScore()
-            {
-                var url = "/springdemo/getInitScore.html";
-                xhr.open("POST", url, true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-                xhr.onreadystatechange = processRetriveResponse;
-
-                var teacherName = document.getElementById("teacherName").innerHTML;
-                var studentName = document.getElementById("studentName").value;
-                var courseName = document.getElementById("courseName").value;
-                var score = document.getElementById("score").value;
+                document.getElementById("score").value = "";
                 xhr.send("teacherName=" + teacherName + "&studentName=" + studentName + "&courseName=" + courseName + "&score=" + score);
             }
 
@@ -46,8 +35,33 @@
                 if (xhr.readyState==4 && xhr.status==200)
                 {
                     document.getElementById("result").innerHTML = xhr.responseText;
+                    alert(document.getElementById("insertMessage").innerHTML);
                 }
             }
+
+            function retriveInitScore()
+            {
+                var url = "/springdemo/getInitScore.html";
+                xhr.open("POST", url, true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+                xhr.onreadystatechange = processRetriveInitResponse;
+
+                var teacherName = document.getElementById("teacherName").innerHTML;
+                var studentName = document.getElementById("studentName").value;
+                var courseName = document.getElementById("courseName").value;
+                var score = document.getElementById("score").value;
+                xhr.send("teacherName=" + teacherName + "&studentName=" + studentName + "&courseName=" + courseName + "&score=" + score);
+            }
+
+            function processRetriveInitResponse()
+            {
+                if (xhr.readyState==4 && xhr.status==200)
+                {
+                    document.getElementById("result").innerHTML = xhr.responseText;
+                    //alert(document.getElementById("insertMessage").innerHTML);
+                }
+            }
+
 
             function confirmDelete(deleteBtn)
             {
@@ -188,7 +202,7 @@
     <body  onload="retriveInitScore();">
 
         <span id="teacherName">${userName}</span>, welcome！you are a ${identity}.
-        <span style="align:right"><a href="/springdemo/index.jsp">退出</a></span>
+        <span style="text-align:right;"><a href="/springdemo/index.jsp">退出</a></span>
         <hr />
 
         <center>
